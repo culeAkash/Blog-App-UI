@@ -1,9 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import React from 'react'
-import {Button} from 'reactstrap'
 import Base from './Components/Base';
-import {Routes,Route,Navigate} from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import About from './Pages/About';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
@@ -12,18 +11,16 @@ function App() {
   return (
     <React.Fragment>
       <Base>
+        <Routes>
+          <Route path='/' element={<Navigate to='/home' replace />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
 
-      <Routes>
-        <Route path='/' element={<Navigate to='/home' replace/>}/>
-        <Route path='/home' element={<Home/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signup' element={<Signup/>}/>
-
-      </Routes>
-      
-
+        </Routes>
       </Base>
+
     </React.Fragment>
 
   );

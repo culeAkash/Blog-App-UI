@@ -1,13 +1,19 @@
 import React from 'react'
+import Header from './Header'
+
 
 export default function Base({title = 'Welcome to our website',children}) {
   return (
-    <React.Fragment>
-        <h1>This is our header</h1>
+    <div>
+        <Header/>
+      <div style={{paddingTop:'50px'}}>
 
+      
         {children}
+        
+        
+</div>
 
-        <h1>This is our footer</h1>
-    </React.Fragment>
+    </div>
   )
 }
