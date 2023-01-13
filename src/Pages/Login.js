@@ -13,7 +13,7 @@ export default function Login() {
         }}
         sm="12"
         >
-          <Card>
+          <Card outline color='dark'> 
             <CardHeader className='text-center'>
               <h2>Login here</h2>
             </CardHeader>
