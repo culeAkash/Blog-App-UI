@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react'
 import Base from '../Components/Base'
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import FormValidationError from '../Components/FormValidationError';
+import { register } from '../Services/auth-service';
+import {toast} from 'react-toastify'
 
 export default function Signup() {
 
@@ -12,7 +14,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [about, setAbout] = useState('');
 
-  const [isSubmitValid, setisSubmitValid] = useState(false);
+  const [isSubmitValid, setisSubmitValid] = useState(null);
 
   const [error, setError] = useState();
 
@@ -26,6 +28,10 @@ export default function Signup() {
 
   const [passwordErr, setpasswordErr] = useState({
     isValid : null,
+  });
+
+  const [aboutErr, setaboutErr] = useState({
+    isValid : null
   });
 
 
@@ -51,6 +57,7 @@ export default function Signup() {
   
     const aboutChangeHandler = (event => {
       setAbout(event.target.value);
+      aboutValidateHandler(event.target.value);
     })
 
 
@@ -65,6 +72,10 @@ export default function Signup() {
 
     const passwordBlurHandler = ()=>{
       passwordValidateHandler(password);
+    }
+
+    const aboutBlurHandler = ()=>{
+      aboutValidateHandler(about);
     }
 
   //validating name value in form
@@ -136,28 +147,51 @@ export default function Signup() {
         setpasswordErr({isValid,messages});
     }
 
+    const aboutValidateHandler  = (userAbout)=>{
+      let isValid = true;
+        let messages = [];
+
+        if(userAbout.trim().length===0){
+            isValid =false;
+            messages = [...messages,'About must not be empty']
+        }
+
+        setaboutErr({isValid,messages});
+    }
+
 
     useEffect(() => {
-     const timeout =  setTimeout(() => {
-
-      if(nameErr.isValid && passwordErr.isValid && emailErr.isValid)
+      if(nameErr.isValid && passwordErr.isValid && emailErr.isValid && aboutErr.isValid)
         setisSubmitValid(true);
-      }, 500);
+      else
+        setisSubmitValid(false);
       
-      return () => {
-        clearTimeout(timeout)
-      };
-    }, [name,email,password,about,nameValidateHandler,passwordValidateHandler,emailValidateHandler]);
+    }, [nameErr,emailErr,passwordErr,aboutErr]);
 
     const submitFormHandler = (event=>{
       event.preventDefault();
       nameValidateHandler(name);
       passwordValidateHandler(password);
       emailValidateHandler(email);
+      aboutValidateHandler(about);
 
-      console.log(name,password,email,about);
-
+      //send date to server
+      if(isSubmitValid===true){
+      register({
+        name : name,
+        email : email,
+        password : password,
+        about : about
+      }).then(res=>{
+        console.log(res);
+        toast("User is registered successfully")
+        console.log("Success Log");
+      }).catch(rej=>{
+        console.log(rej);
+        console.log("Error log");
+      })
       formResetHandler(event);
+    }
 
     })
 
@@ -170,11 +204,9 @@ export default function Signup() {
       setnameErr({isValid : null})
       setemailErr({isValid : null})
       setpasswordErr({isValid : null})
+      setaboutErr({isValid : null});
       setisSubmitValid(false)
     })
-
-
-
 
   return (
     <Container className='mt-3'>
@@ -217,11 +249,12 @@ export default function Signup() {
 
                 <FormGroup>
                   <Label for='desc'>Description : </Label>
-                  <Input id='desc' type='textarea' placeholder='Enter Description here' style={{ height: '200px' }} value={about} onChange={aboutChangeHandler} />
+                  <Input id='desc' type='textarea' placeholder='Enter Description here' style={{ height: '200px' }} value={about} onChange={aboutChangeHandler} onBlur={aboutBlurHandler} invalid={aboutErr.isValid===false} valid={aboutErr.isValid===true}/>
+                  {aboutErr.isValid===false && <FormValidationError messages={aboutErr.messages}/>}
                 </FormGroup>
 
                 <Container className='text-center'>
-                  <Button color='success' style={{ marginRight: '10px' }} type='submit' disabled={!isSubmitValid}>Submit</Button>
+                  <Button color='success' style={{ marginRight: '10px' }} type='submit'>Submit</Button>
                   <Button color='warning' type='reset'>Reset</Button>
                 </Container>
 
