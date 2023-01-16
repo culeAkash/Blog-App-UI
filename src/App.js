@@ -9,17 +9,20 @@ import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify'
+import User from './Pages/user-routes/User';
 function App() {
   return (
     <React.Fragment>
       <Base>
-      <ToastContainer/>
+      <ToastContainer position='bottom-center'/>
         <Routes>
           <Route path='/' element={<Navigate to='/home' replace />} />
           <Route path='/home' element={<Home />} />
           <Route path='/about' element={<About />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+
+          <Route path='/user/*' element={<User/>}/>
 
         </Routes>
       </Base>

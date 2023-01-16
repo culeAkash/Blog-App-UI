@@ -8,3 +8,8 @@ export const register =  async (user)=>{
     const response =  await axios.post('/api/v1/auth/register',user);
     return response.data
 }
+
+export const login = async (loginData)=>{
+    const response = await axios.post('/api/v1/auth/login',loginData);
+    return response.data;
+}
