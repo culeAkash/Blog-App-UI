@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { login } from '../Services/auth-service';
 import { toast } from 'react-toastify'
 import { doLogin } from '../Auth/auth';
 import { getCurrentUserDetails } from '../Auth/auth';
+import { LoginContext } from '../Context/login-context';
+import { Navigate } from 'react-router-dom';
 
 export default function Login() {
 
@@ -11,6 +13,8 @@ export default function Login() {
   const [password, setpassword] = useState('');
 
   const [validSubmission, setvalidSubmission] = useState(false);
+
+  const context = useContext(LoginContext);
 
   const userNameChangeHandler = (event) => {
     setuserName(event.target.value);
@@ -46,7 +50,8 @@ export default function Login() {
         console.log("Login Detail is stored in Local Storage");
       })
       console.log(getCurrentUserDetails());
-
+      toast.success("Login Successful")
+      context.toggleLogin();
       loginResetHandler(e);
       //redirect to user dashboard page
     }).catch(error => {
@@ -63,6 +68,12 @@ export default function Login() {
     setpassword('')
     setvalidSubmission(false)
     // setisLoginValid(false)
+  }
+
+  if(context.isLogin){
+    return(
+      <Navigate to='/user' replace/>
+    )
   }
 
 

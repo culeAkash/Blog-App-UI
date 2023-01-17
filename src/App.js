@@ -10,9 +10,11 @@ import Signup from './Pages/Signup';
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify'
 import User from './Pages/user-routes/User';
+import LoginContextProvider from './Context/login-context';
+import Logout from './Pages/Logout';
 function App() {
   return (
-    <React.Fragment>
+    <LoginContextProvider>
       <Base>
       <ToastContainer position='bottom-center'/>
         <Routes>
@@ -23,11 +25,12 @@ function App() {
           <Route path='/signup' element={<Signup />} />
 
           <Route path='/user/*' element={<User/>}/>
+          <Route path='/logout' element={<Logout/>}/>
 
         </Routes>
       </Base>
 
-    </React.Fragment>
+    </LoginContextProvider>
 
   );
 }
