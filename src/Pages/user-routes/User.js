@@ -2,6 +2,7 @@ import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { authenticate } from '../../Auth/auth'
 import Dashboard from './Dashboard'
+import ProfileInfo from './ProfileInfo'
 export default function User() {
 
 
@@ -11,13 +12,13 @@ export default function User() {
 
 
   return (
-    <div>
-      User is logged in
+    <React.Fragment>
 
     <Routes>
         <Route path='/' element={<Navigate to='dashboard' replace/>} />
       <Route path='/dashboard' element={<Dashboard/>}/>
+      <Route path='/info' element={<ProfileInfo/>}/>
       </Routes>
-    </div>
+    </React.Fragment>
   )
 }

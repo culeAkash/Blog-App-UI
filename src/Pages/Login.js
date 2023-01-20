@@ -57,7 +57,7 @@ export default function Login() {
     }).catch(error => {
       // setisLoginValid(false);
       toast.error(error?.response?.data?.message);
-      console.log(error.response.data);
+      console.log(error?.response?.data);
     })
 
   }

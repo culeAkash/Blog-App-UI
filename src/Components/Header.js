@@ -30,10 +30,10 @@ export default function Header() {
           </ul>
           {context.isLogin && <ul className="navbar-nav ms-auto mb-2 mb-lg-0 text-uppercase">
             <li className="nav-item">
-              <Link className="nav-link" to="/logout">Logout</Link>
+              <Link className="nav-link" to='/user/info'>{user.name}</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link">{user.name}</Link>
+              <Link className="nav-link" to="/logout">Logout</Link>
             </li>
           </ul>}
           {!context.isLogin && <ul className="navbar-nav ms-auto mb-2 mb-lg-0 text-uppercase">
