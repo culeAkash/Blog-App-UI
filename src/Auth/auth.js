@@ -30,3 +30,11 @@ export const getCurrentUserDetails = ()=>{
     }
     return null;
 }
+
+
+export const getJWTToken = ()=>{
+    if(authenticate()){
+        return JSON.parse(localStorage.getItem('loginUserData')).token;
+    }
+    return null;
+}
