@@ -22,7 +22,7 @@ export default function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className='navbar-nav mb-2 mb-lg-0 text-uppercase'>
           <li className="nav-item">
-              <Link className="nav-link" aria-current="page" to="/">Home</Link>
+              <Link className="nav-link" aria-current="page" to="/">News Feed</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/about">About</Link>
@@ -30,7 +30,10 @@ export default function Header() {
           </ul>
           {context.isLogin && <ul className="navbar-nav ms-auto mb-2 mb-lg-0 text-uppercase">
             <li className="nav-item">
-              <Link className="nav-link" to='/user/info'>{user.name}</Link>
+              <Link className="nav-link" to='/user/info'>Profile</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to='/user/'>{user.name}</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/logout">Logout</Link>
