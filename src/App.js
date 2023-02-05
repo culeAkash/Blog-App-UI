@@ -12,6 +12,7 @@ import {ToastContainer} from 'react-toastify'
 import User from './Pages/user-routes/User';
 import LoginContextProvider from './Context/login-context';
 import Logout from './Pages/Logout';
+import PostPage from './Pages/user-routes/PostPage';
 function App() {
   return (
     <LoginContextProvider>
@@ -23,6 +24,7 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/post/:postId' element={<PostPage />} />
 
           <Route path='/user/*' element={<User/>}/>
           <Route path='/logout' element={<Logout/>}/>
